@@ -2,6 +2,9 @@ before_script:
   - docker info
 
 build_image:
+  tags:
+    - linux
+    - docker  
   script:
     - docker build -t automotive_standard_compliance .
  #   - docker run my-docker-image /script/to/run/tests
