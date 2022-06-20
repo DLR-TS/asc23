@@ -5,6 +5,9 @@ build_image:
   tags:
     - linux
     - docker  
+  
+  stage: build
+  
   script:
     - docker build -t automotive_standard_compliance .
  #   - docker run my-docker-image /script/to/run/tests
