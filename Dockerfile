@@ -10,10 +10,10 @@ FROM ubuntu:latest
 #     apk add git
 
 #ubuntu version
-RUN apt update && \ 
-    apt install cmake && \
-    apt install gcc && \
-    apt install git
+RUN apt update -y && \ 
+    apt install cmake -y && \
+    apt install gcc -y && \
+    apt install git -y
 
 # get
 RUN git clone https://github.com/modelica-tools/FMUComplianceChecker
