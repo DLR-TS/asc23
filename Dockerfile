@@ -10,11 +10,11 @@ FROM ubuntu:latest
 #     apk add git
 
 #ubuntu version
-RUN apt update -y && \ 
-    apt install cmake -y && \
-    apt install gcc -y && \
-    apt install git -y
+RUN apt-get update -y && \ 
+    apt-get install cmake -y && \
+    apt-get install gcc -y && \
+    apt-get install git -y
 
-# get
-RUN git clone https://github.com/modelica-tools/FMUComplianceChecker
+# get tools
+RUN git clone --config http.proxy=${HTTP_PROXY} https://github.com/modelica-tools/FMUComplianceChecker
 
