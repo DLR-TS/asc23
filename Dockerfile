@@ -10,7 +10,7 @@ FROM ubuntu:latest
 #     apk add git
 
 
-ubuntu version
+#ubuntu version
 RUN apt-get update -y && \ 
     apt-get install cmake -y && \
     apt-get install gcc -y && \
