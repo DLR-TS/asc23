@@ -9,5 +9,5 @@ build_image:
   stage: build
   
   script:
-    - docker build -t automotive_standard_compliance .
+    - docker build --build-arg "$HTTP_PROXY" --build-arg "$HTTPS_PROXY" -t automotive_standard_compliance .
  #   - docker run my-docker-image /script/to/run/tests
