@@ -26,9 +26,16 @@ RUN cd /usr/src/FMUComplianceChecker; \
     make install test 
     
 
+# Install python/pip
+ENV PYTHONUNBUFFERED=1
+RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
+RUN python3 -m ensurepip
+RUN pip3 install --no-cache --upgrade pip setuptools
 
 
+FROM builder AS runner
 
+ADD ./xmlSchemeChecker.py /opt/xmlSchemeChecker/xmlSchemeChecker.py
 
 #ubuntu version
 #RUN apt-get update -y && \ 
