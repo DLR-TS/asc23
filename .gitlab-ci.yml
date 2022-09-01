@@ -1,0 +1,14 @@
+before_script:
+  - docker info
+
+build_image:
+  tags:
+    - linux
+    - docker  
+  
+  stage: build
+  
+  script:
+    #if you're behind a proxy configure your client according to https://docs.docker.com/network/proxy/
+    - docker build -t automotive_standard_compliance .
+ #   - docker run my-docker-image /script/to/run/tests
