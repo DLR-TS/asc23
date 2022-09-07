@@ -1,6 +1,10 @@
-FROM alpine:latest AS base
-#FROM ubuntu:latest
-ARG ASC23_HOME=/opt/asc32
+# Author(s): Danny Behnecke for Institute of Transportation System - German Aerospace Center
+
+FROM alpine:3.16 AS base
+
+ENV ASC23_HOME=/opt/asc32
+RUN echo $ASC23_HOME
+
 
 # install prerequisites
 #alpine version
@@ -15,10 +19,10 @@ FROM base AS builder
 
 
 #FMU_COMPLIANCE_CHECKER
-RUN mkdir $ASC23_HOME/FMU_COMPLIANCE_CHECKER; \
+RUN mkdir -p $ASC23_HOME/FMU_COMPLIANCE_CHECKER; \
     git clone --config https.proxy=${https_proxy} https://github.com/modelica-tools/FMUComplianceChecker $ASC23_HOME/FMU_COMPLIANCE_CHECKER 
     
-RUN cd $ASC23_HOME/FMU_COMPLIANCE_CHECKER \
+RUN cd $ASC23_HOME/FMU_COMPLIANCE_CHECKER; \
     mkdir build; \
     cd build; \
     cmake -DFMUCHK_INSTALL_PREFIX=${pwd}/../install ./../ ;\ 
@@ -35,13 +39,15 @@ RUN pip3 install --no-cache --upgrade pip setuptools
 ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+RUN python3 -m pip install --upgrade pip
 
 
 FROM builder AS runner
 
 ADD ./xmlSchemeChecker.py $ASC23_HOME/xmlSchemeChecker.py
-ADD ./requirements.txt $ASC23_HOMErequirements.txt
+ADD ./requirements.txt $ASC23_HOME/requirements.txt
 RUN pip3 install -r $ASC23_HOME/requirements.txt
 
-COPY ./standards $ASC23_HOME/standards
+# TODO: slim down standards to compress image
+COPY ./standards $ASC23_HOME/standards 
 ADD ./check_openDRIVE.sh $ASC23_HOME/check_openDRIVE.sh

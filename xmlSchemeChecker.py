@@ -38,9 +38,9 @@ if __name__=="__main__":
 
     args = parser.parse_args()
 
-    print(args.schema)
+    #print(args.schema)
 
-    print(type(args.schema[0]))
+    #print(type(args.schema[0]))
 
     schema_path=args.schema[0]
     xml_file=args.xml_file[0]

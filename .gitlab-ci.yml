@@ -1,6 +1,11 @@
 before_script:
   - docker info
 
+variables:
+  XODR_FILES: 'find -name "*.xodr"'
+  XOSC_FILES: 'find -name "*.xosc"'
+  FMU_FILES: 'find -name "*.fmu"'
+
 build_image:
   tags:
     - linux
@@ -10,5 +15,21 @@ build_image:
   
   script:
     #if you're behind a proxy configure your client according to https://docs.docker.com/network/proxy/
-    - docker build -t automotive_standard_compliance .
+    - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker build -t asc23:latest .
+    - docker push $CI_REGISTRY/asc23:latest
  #   - docker run my-docker-image /script/to/run/tests
+
+check_opendrive:
+  tags:
+    - linux
+    - docker
+
+  stage: opendrive
+
+  script:
+    - for FILE in $XODR_FILES 
+      do 
+        ./check_openDRIVE.sh $FILE 
+      done
+    
