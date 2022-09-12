@@ -1,10 +1,11 @@
 before_script:
   - docker info
+  - apk add --no-cache bash
 
-variables:
-  XODR_FILES: 'find -name "*.xodr"'
-  XOSC_FILES: 'find -name "*.xosc"'
-  FMU_FILES: 'find -name "*.fmu"'
+    #variables:
+  #XODR_FILES: eval(find -name "*.xodr")
+  #XOSC_FILES: 'find -name "*.xosc"'
+  #FMU_FILES: 'find -name "*.fmu"'
 
 stages:
   - build
@@ -35,9 +36,13 @@ check_opendrive:
   stage: opendrive
 
   script:
-    - echo '$XODR_FILES'
-    - for FILE in $XODR_FILES 
+    - XODR_FILES=$(find -name "*.xodr")
+    - echo $XODR_FILES
+    - echo $CI_PROJECT_DIR
+    - ls -a $CI_PROJECT_DIR 
+    - chmod +x $CI_PROJECT_DIR/check_openDRIVE.sh  
+    - for FILE in $XODR_FILES; 
       do 
-        ./check_openDRIVE.sh $FILE 
+        $CI_PROJECT_DIR/check_openDRIVE.sh $FILE; 
       done
     
