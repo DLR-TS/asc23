@@ -2,7 +2,7 @@ before_script:
   - docker info
 
 variables:
-  XODR_FILES: 'find -name "*.xodr"'
+  XODR_FILES: $(find -name "*.xodr")
   XOSC_FILES: 'find -name "*.xosc"'
   FMU_FILES: 'find -name "*.fmu"'
 
