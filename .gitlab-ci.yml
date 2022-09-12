@@ -37,8 +37,8 @@ check_opendrive:
   script:
     - XODR_FILES=$(find -name "*.xodr")
     - echo $XODR_FILES
-    - for FILE in $XODR_FILES 
+    - for FILE in $XODR_FILES; 
       do 
-        ./check_openDRIVE.sh $FILE 
+        ./check_openDRIVE.sh $FILE; 
       done
     
