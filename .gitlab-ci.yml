@@ -37,8 +37,9 @@ check_opendrive:
   script:
     - XODR_FILES=$(find -name "*.xodr")
     - echo $XODR_FILES
+    - echo $CI_BUILDS_DIR  
     - for FILE in $XODR_FILES; 
       do 
-        ./check_openDRIVE.sh $FILE; 
+        ./$CI_BUILDS_DIR/check_openDRIVE.sh $FILE; 
       done
     
