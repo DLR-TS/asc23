@@ -42,6 +42,6 @@ check_opendrive:
     - echo $CI_PROJECT_DIR  
     - for FILE in $XODR_FILES; 
       do 
-        ./$CI_BUILDS_DIR/check_openDRIVE.sh $FILE; 
+        ./$CI_PROJECT_DIR/check_openDRIVE.sh $FILE; 
       done
     
