@@ -9,7 +9,7 @@ RUN echo $ASC23_HOME
 # install prerequisites
 #alpine version
  RUN apk update && \ 
-     apk --no-cache add --update cmake gcc git make clang clang-dev g++ libc-dev linux-headers
+     apk --no-cache add --update cmake gcc git make clang clang-dev g++ libc-dev linux-headers 
      
 
 FROM base AS builder
@@ -40,6 +40,26 @@ ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 RUN python3 -m pip install --upgrade pip
+
+#OSI
+RUN apk add --update --no-cache protobuf-dev protoc python3-dev
+
+RUN mkdir -p $ASC23_HOME/OSI; \
+    git clone --config https.proxy=${https_proxy} https://github.com/OpenSimulationInterface/open-simulation-interface.git $ASC23_HOME/OSI; \
+    cd $ASC23_HOME/OSI; \
+    python3 -m pip install .
+
+
+#OSI_VALIDATOR
+#@TODO The repo link has to be updated once the official osi-validation is installable again
+RUN mkdir -p $ASC23_HOME/OSI_VALIDATOR; \
+    #git clone --config https.proxy=${https_proxy} https://github.com/OpenSimulationInterface/osi-validation.git $ASC23_HOME/OSI_VALIDATOR 
+    git clone --config https.proxy=${https_proxy} https://github.com/DLR-TS/osi-validation $ASC23_HOME/OSI_VALIDATOR 
+
+RUN cd $ASC23_HOME/OSI_VALIDATOR; \
+    git submodule update --init; \
+    pip3 install --use-deprecated=legacy-resolver .
+
 
 
 FROM builder AS runner
