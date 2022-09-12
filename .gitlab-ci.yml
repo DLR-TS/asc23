@@ -6,6 +6,13 @@ variables:
   XOSC_FILES: 'find -name "*.xosc"'
   FMU_FILES: 'find -name "*.fmu"'
 
+stages:
+  - build
+  - opendrive
+  - openscenario
+  - FMI
+  
+
 build_image:
   tags:
     - linux
