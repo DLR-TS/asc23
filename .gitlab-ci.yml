@@ -38,9 +38,10 @@ check_opendrive:
     - XODR_FILES=$(find -name "*.xodr")
     - echo $XODR_FILES
     - echo $CI_PROJECT_DIR
-    - ls $CI_PROJECT_DIR  
+    - ls -a $CI_PROJECT_DIR 
+    - chmod +x $CI_PROJECT_DIR/check_openDRIVE.sh  
     - for FILE in $XODR_FILES; 
       do 
-        ./$CI_PROJECT_DIR/check_openDRIVE.sh $FILE; 
+        $CI_PROJECT_DIR/check_openDRIVE.sh $FILE; 
       done
     
