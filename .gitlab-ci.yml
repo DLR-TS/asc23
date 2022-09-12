@@ -1,10 +1,10 @@
 before_script:
   - docker info
 
-variables:
-  XODR_FILES: eval(find -name "*.xodr")
-  XOSC_FILES: 'find -name "*.xosc"'
-  FMU_FILES: 'find -name "*.fmu"'
+    #variables:
+  #XODR_FILES: eval(find -name "*.xodr")
+  #XOSC_FILES: 'find -name "*.xosc"'
+  #FMU_FILES: 'find -name "*.fmu"'
 
 stages:
   - build
@@ -35,6 +35,7 @@ check_opendrive:
   stage: opendrive
 
   script:
+    - XODR_FILES=$(find -name "*.xodr")
     - echo $XODR_FILES
     - for FILE in $XODR_FILES 
       do 
