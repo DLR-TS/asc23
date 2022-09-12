@@ -1,6 +1,6 @@
 before_script:
   - docker info
-  - apk add --no-cash bash
+  - apk add --no-cache bash
 
     #variables:
   #XODR_FILES: eval(find -name "*.xodr")
