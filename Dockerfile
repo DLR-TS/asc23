@@ -69,13 +69,13 @@ FROM python:3-alpine AS runner
 
 ENV ASC23_HOME=/opt/asc23
 
-COPY --from=base /$ASC23_HOME /$ASC23_HOME
+COPY --from=base $ASC23_HOME $ASC23_HOME
 
-COPY ./xmlSchemeChecker.py /$ASC23_HOME/xmlSchemeChecker.py
-COPY ./requirements.txt /$ASC23_HOME/requirements.txt
-RUN pip3 install -r /$ASC23_HOME/requirements.txt
+COPY ./xmlSchemeChecker.py $ASC23_HOME/xmlSchemeChecker.py
+COPY ./requirements.txt $ASC23_HOME/requirements.txt
+RUN pip3 install -r $ASC23_HOME/requirements.txt
 
 # TODO: slim down standards to compress image
-COPY ./standards_reduced /$ASC23_HOME/standards 
-COPY ./check_openDRIVE.sh /$ASC23_HOME/check_openDRIVE.sh
+COPY ./standards_reduced $ASC23_HOME/standards 
+COPY ./check_openDRIVE.sh $ASC23_HOME/check_openDRIVE.sh
 
