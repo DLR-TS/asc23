@@ -43,6 +43,7 @@ check_opendrive:
     - chmod +x $CI_PROJECT_DIR/check_openDRIVE.sh  
     - for FILE in $XODR_FILES; 
       do 
-        $CI_PROJECT_DIR/check_openDRIVE.sh $FILE; 
+        $CI_PROJECT_DIR/check_openDRIVE.sh $FILE >> openDriveCheck.txt; 
       done
-    
+  artifacts:
+  reports: openDriveCheck.txt    

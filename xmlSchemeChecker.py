@@ -14,8 +14,14 @@ class Validator:
     def validate(self, xml_path: str) -> bool:
         xml_doc = etree.parse(xml_path)
         result = self.xmlschema.validate(xml_doc)
-
         return result
+       
+    def assertValidity(self, xml_path:str) ->str:
+        xml_doc = etree.parse(xml_path) 
+        try:
+            result = self.xmlschema.assertValid(xml_doc)
+        except Exception as e:
+            return str(e)
 
 def dir_path(string):
     if path.isdir(string):
@@ -57,4 +63,6 @@ if __name__=="__main__":
         print('Valid! :)')
     else:
         print('Not valid! :(')
+        print('Problems: \ņ')
+        print(validator.assertValidity(xml_file))
 
