@@ -46,4 +46,5 @@ check_opendrive:
         $CI_PROJECT_DIR/check_openDRIVE.sh $FILE >> openDriveCheck.txt; 
       done
   artifacts:
-  reports: openDriveCheck.txt    
+    expose_as: 'openDRIVE Report'
+    paths: ['openDriveCheck.txt']
