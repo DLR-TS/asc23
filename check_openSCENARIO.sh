@@ -10,7 +10,7 @@ XOSC12_SCHEMA=$ASC23_HOME/standards/openSCENARIO/openscenario-v1.2.0/Schema/Open
 OUTPUT="Schema validity of ${TESTFILE}: \n"
 
 
-OUTPUT+="openSCENARIO 1.2: $(python3 $ASC23_HOME/xmlSchemeChecker.py $XODR170_SCHEMA $TESTFILE) \n"
+OUTPUT+="openSCENARIO 1.2: $(python3 $ASC23_HOME/xmlSchemeChecker.py $XOSC12_SCHEMA $TESTFILE) \n"
 
 
 

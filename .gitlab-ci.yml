@@ -11,7 +11,8 @@ stages:
   - build
   - opendrive
   - openscenario
-  - FMI
+  - SSP
+ 
   
 
 build_image:
@@ -69,3 +70,24 @@ check_openscenario:
   artifacts:
     expose_as: 'openSCENARIO Report'
     paths: ['openSCENARIOCheck.txt']
+
+check_SSP:
+  tags:
+    - linux
+    - docker
+
+  stage: SSP
+
+  script:
+    - XODR_FILES=$(find -name "*.xosc")
+    - echo $XODR_FILES
+    - echo $CI_PROJECT_DIR
+    - ls -a $CI_PROJECT_DIR 
+    - chmod +x $CI_PROJECT_DIR/check_SSP.sh  
+    - for FILE in $XODR_FILES; 
+      do 
+        $CI_PROJECT_DIR/check_SSP.sh $FILE >> SSPCheck.txt; 
+      done
+  artifacts:
+    expose_as: 'SSP Report'
+    paths: ['SSPCheck.txt']    
