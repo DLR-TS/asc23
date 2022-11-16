@@ -48,3 +48,24 @@ check_opendrive:
   artifacts:
     expose_as: 'openDRIVE Report'
     paths: ['openDriveCheck.txt']
+
+check_openscenario:
+  tags:
+    - linux
+    - docker
+
+  stage: openscenario
+
+  script:
+    - XODR_FILES=$(find -name "*.xosc")
+    - echo $XODR_FILES
+    - echo $CI_PROJECT_DIR
+    - ls -a $CI_PROJECT_DIR 
+    - chmod +x $CI_PROJECT_DIR/check_openSCENARIO.sh  
+    - for FILE in $XODR_FILES; 
+      do 
+        $CI_PROJECT_DIR/check_openSCENARIO.sh $FILE >> openSCENARIOCheck.txt; 
+      done
+  artifacts:
+    expose_as: 'openSCENARIO Report'
+    paths: ['openSCENARIOCheck.txt']
